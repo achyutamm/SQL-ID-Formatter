@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SQL ID Formatter</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .container { max-width: 800px; margin: auto; }
+        textarea { width: 100%; height: 150px; margin-top: 10px; }
+        .output { margin-top: 20px; }
+        .buttons { margin-top: 10px; }
+        button { margin-right: 10px; }
+    </style>
+    <script>
+        function clearText() {
+            document.getElementById('input_ids').value = '';
+            document.getElementById('output_ids').value = '';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>SQL ID Formatter</h1>
+        <form method="post" action="/sql_formate">
+            <label for="input_ids">Enter IDs (separated by spaces):</label>
+            <textarea id="input_ids" name="input_ids" required>{{ request.form.get('input_ids', '') }}</textarea>
+            <div class="buttons">
+                <button type="submit">Format IDs</button>
+                <button type="button" onclick="clearText()">Clear</button>
+            </div>
+        </form>
+        {% if formatted_ids %}
+        <div class="output">
+            <h2>Formatted IDs:</h2>
+            <textarea id="output_ids" readonly>{{ formatted_ids }}</textarea>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
