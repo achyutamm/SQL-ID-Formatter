@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>SQL ID Formatter</title>
+    <title>SOQL ID Formatter</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 50px; }
         .container { max-width: 800px; margin: auto; }
-        textarea { width: 100%; height: 150px; margin-top: 10px; }
+        textarea { width: 100%; height: 100px; margin-top: 10px; }
         .output { margin-top: 20px; }
         .buttons { margin-top: 10px; }
         button { margin-right: 10px; }
@@ -14,25 +14,28 @@
     <script>
         function clearText() {
             document.getElementById('input_ids').value = '';
-            document.getElementById('output_ids').value = '';
+            document.getElementById('custom_query').value = '';
+            document.getElementById('soql_query').value = '';
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>SQL ID Formatter</h1>
-        <form method="post" action="/sql_formate">
+        <h1>SOQL ID Formatter</h1>
+        <form method="post" action="/sql_format">
             <label for="input_ids">Enter IDs (separated by spaces):</label>
-            <textarea id="input_ids" name="input_ids" required>{{ request.form.get('input_ids', '') }}</textarea>
+            <textarea id="input_ids" name="input_ids" required>{{ input_ids }}</textarea>
+            <label for="custom_query">Enter Custom SOQL Query:</label>
+            <textarea id="custom_query" name="custom_query" required>{{ custom_query }}</textarea>
             <div class="buttons">
                 <button type="submit">Format IDs</button>
                 <button type="button" onclick="clearText()">Clear</button>
             </div>
         </form>
-        {% if formatted_ids %}
+        {% if soql_query %}
         <div class="output">
-            <h2>Formatted IDs:</h2>
-            <textarea id="output_ids" readonly>{{ formatted_ids }}</textarea>
+            <h2>Formatted SOQL Query:</h2>
+            <textarea id="soql_query" readonly>{{ soql_query }}</textarea>
         </div>
         {% endif %}
     </div>
